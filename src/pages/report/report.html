@@ -1,0 +1,51 @@
+<!--
+  Generated template for the ReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="3">
+    <ion-title>report</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="report">
+    <p color="light">
+      ชื่อ-นามสกุล ผู้ส่ง: {{user.firstName}} {{user.lastName}}
+    </p>
+    <p color="light">
+      ชื่อ-นามสกุล ผู้รับ: {{cookingData.usercontact.firstName}} {{cookingData.usercontact.lastName}}
+    </p>
+    <p color="light">
+      รายละเอียดการแจ้งเตือน: {{cookingData.detail}}
+    </p>
+    <p color="light">
+      ตำแหน่ง:
+    </p>
+    <div #map2 class="map-2"></div>
+
+    <p color="light">
+      รูปภาพ:
+    </p>
+    <ion-row class="fix-img-slide">
+      <ion-slides>
+        <ion-slide *ngFor="let item of cookingData.images">
+          <img src="{{item}}" alt="">
+        </ion-slide>
+      </ion-slides>
+      <button ion-button color="primary" block (click)="selectImage()">เพิ่มรูปภาพ</button>
+    </ion-row>
+
+
+  </div>
+  <div padding>
+    <p>
+      <button ion-button color="danger" block (click)="save()">ยืนยัน</button>
+    </p>
+  </div>
+</ion-content>

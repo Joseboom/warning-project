@@ -1,0 +1,52 @@
+<!--
+  Generated template for the ContactphPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="3">
+    <ion-title>
+      ผู้ติดต่อผ่านการโทร
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let item of listcontact" color="4" [ngClass]="tel === item._id ? 'active': ''" (click)="changeTel(item)">
+      <img item-start src="./assets/icon/contacts.png" width="20%">
+      <h2>{{item.usercontact.firstName}}</h2>
+      <ion-icon name="md-trash" item-end color="danger" (click)="delete(item)"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-item (click)="addContact()" color="5">
+    <img item-start src="./assets/icon/+.png" width="30%">
+    <ion-label>เพิ่มผู้ติดต่อ</ion-label>
+    <!-- <ion-checkbox color="danger" [(ngModel)]="other" checked="false"></ion-checkbox> -->
+  </ion-item>
+  <!-- {{other}} -->
+  <ion-item *ngIf="other">
+    <ion-label floating>เพิ่มรายชื่อ</ion-label>
+    <ion-input type="text" [(ngModel)]="place2.name"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="other">
+    <ion-label floating>เพิ่มเบอร์โทร</ion-label>
+    <ion-input type="number" [(ngModel)]="place2.tel"></ion-input>
+  </ion-item>
+
+
+  <p *ngIf="other">
+    <button ion-button color="danger" [disabled]="!place2.name || !place2.tel" (click)="addPlace2()" block>เพิ่ม</button>
+  </p>
+  <p>
+    <button ion-button color="danger" (click)="doSubmit()" block>ยืนยัน</button>
+  </p>
+
+  <p>
+    <button ion-button color="danger" (click)="cancel()" block>ยกเลิก</button>
+  </p>
+</ion-content>
