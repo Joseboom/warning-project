@@ -21,7 +21,7 @@ export class HomereceivePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomereceivePage');
   }
-  openPage1() {
+  openPage() {
     this.navCtrl.push("LoginReceivePage");
 
   }

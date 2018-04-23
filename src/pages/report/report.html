@@ -27,18 +27,21 @@
     <p color="light">
       ตำแหน่ง:
     </p>
-    <div #map2 class="map-2"></div>
+    <div class="map-2" *ngIf="cookingData && cookingData.location && cookingData.location.lat">
+      <img src="https://maps.googleapis.com/maps/api/staticmap?center={{cookingData.location.lat}},{{cookingData.location.lng}}&zoom=16&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|{{cookingData.location.lat}},{{cookingData.location.lng}}"
+        alt="">
+    </div>
 
     <p color="light">
       รูปภาพ:
     </p>
     <ion-row class="fix-img-slide">
+      <button ion-button color="primary" block (click)="selectImage()">เพิ่มรูปภาพ</button>
       <ion-slides>
         <ion-slide *ngFor="let item of cookingData.images">
           <img src="{{item}}" alt="">
         </ion-slide>
       </ion-slides>
-      <button ion-button color="primary" block (click)="selectImage()">เพิ่มรูปภาพ</button>
     </ion-row>
 
 

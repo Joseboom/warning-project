@@ -27,8 +27,8 @@ export class ReportPage {
     },
     detail: '',
     location: {
-      lat: '',
-      lng: ''
+      lat: 0,
+      lng: 0
     },
     images: ['url']
   };
@@ -37,9 +37,6 @@ export class ReportPage {
     lastName: '',
     tel: null
   }
-  @ViewChild('map2') mapElement: ElementRef;
-  private map: GoogleMap;
-  private location: LatLng;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -59,47 +56,6 @@ export class ReportPage {
     console.log(this.cookingData);
     this.cookingData.images = this.cookingData.images ? this.cookingData.images : [];
     this.user = window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : {};
-    this.location = new LatLng(this.cookingData.location.lat, this.cookingData.location.lng);
-    this.initialMap();
-  }
-
-  initialMap() {
-    let element = this.mapElement.nativeElement;
-    this.map = this.googleMaps.create(element, {
-      controls: {
-        compass: true,
-        myLocationButton: true,
-        indoorPicker: true,
-        zoom: true,
-      },
-      gestures: {
-        scroll: false,
-        tilt: false,
-        rotate: false,
-        zoom: false
-      },
-      camera: {
-        bearing: 0,
-        tilt: 0,
-        zoom: 16,
-        target: this.location
-      }
-    });
-
-    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-      this.map.addMarker({
-        title: 'Ionic',
-        icon: 'blue',
-        animation: 'DROP',
-        position: this.location
-      })
-        .then(marker => {
-          // marker.on(GoogleMapsEvent.MARKER_CLICK)
-          //   .subscribe(() => {
-          //     alert('clicked');
-          //   });
-        });
-    });
   }
 
   selectImage() {
