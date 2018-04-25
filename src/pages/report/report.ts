@@ -1,3 +1,4 @@
+import { ReportProvider } from './../../providers/report/report';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, App, ActionSheetController, LoadingController } from 'ionic-angular';
 import { GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent } from '@ionic-native/google-maps';
@@ -46,7 +47,8 @@ export class ReportPage {
     public actionSheetCtrl: ActionSheetController,
     private camera: Camera,
     private imagePicker: ImagePicker,
-    private loading: LoadingController
+    private loading: LoadingController,
+    public service: ReportProvider
   ) {
   }
 
@@ -189,16 +191,30 @@ export class ReportPage {
   }
 
   save() {
-    window.localStorage.removeItem('report');
+
     let alert = this.alert.create({
-      title: 'เสร็จสิ้น',
-      message: 'ส่งข้อความเรียบร้อยแล้ว?',
+      title: 'ส่งข้อความ',
+      message: 'คุณต้องการส่งข้อความนี้ใช่หรือไม่?',
       buttons: [
         {
+          text: 'Cancel',
+          handler: () => {
+            // console.log('Buy clicked');
+          }
+        }, {
           text: 'OK',
           handler: () => {
             // console.log('Buy clicked');
-            this.appCtrl.getRootNav().setRoot('TabnavPage');
+            let loading = this.loading.create();
+            loading.present();
+            this.service.saveReport(this.cookingData).then((data) => {
+              loading.dismiss();
+              window.localStorage.removeItem('report');
+              this.appCtrl.getRootNav().setRoot('TabnavPage');
+            }, (err) => {
+              loading.dismiss();              
+              console.log(err);
+            });
           }
         }
       ]

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { DetailwarningProvider } from '../../providers/detailwarning/detailwarning';
 
 /**
  * Generated class for the DetailwarningPage page.
@@ -15,7 +16,8 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
   templateUrl: 'detailwarning.html',
 })
 export class DetailwarningPage {
-  listwarning: Array<any> = [{ detail: 'รถชน' }, { detail: 'รถล้ม' }, { detail: 'ไฟไหม้' }, { detail: 'ผู้ป่วยหนัก' }];
+  // listwarning: Array<any> = [{ detail: 'รถชน' }, { detail: 'รถล้ม' }, { detail: 'ไฟไหม้' }, { detail: 'ผู้ป่วยหนัก' }];
+  listwarning: Array<any> = [];
   danger: String;
   other: boolean = false;
   data: string = '';
@@ -34,22 +36,45 @@ export class DetailwarningPage {
     },
     images: ['url']
   };
+  loading: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public alert: AlertController
+    public alert: AlertController,
+    public service: DetailwarningProvider,
+    public loadding: LoadingController
   ) {
+    
   }
 
   ionViewWillEnter() {
     console.log('ionViewDidLoad DetailwarningPage');
     this.cookingData = window.localStorage.getItem('report') ? JSON.parse(window.localStorage.getItem('report')) : {};
+    this.getWorning();
+  }
+
+  getWorning() {
+    this.loading = this.loadding.create();
+    this.loading.present();
+    this.service.getDetails().then((data) => {
+      this.listwarning = data;
+      this.loading.dismiss();
+    }, (err) => {
+      console.log(err);
+      this.loading.dismiss();
+    });
   }
 
   adddanger() {
-    let danger = JSON.parse(JSON.stringify(this.danger));
-    this.listwarning.push(danger);
-    this.danger = '';
+    this.loading = this.loadding.create();
+    this.loading.present();
+    this.service.saveDetails(this.danger).then((data) => {
+      this.loading.dismiss();      
+      this.danger = '';      
+      this.getWorning();
+    },(err)=>{
+      console.log(err);
+    });
   }
   cancel() {
     this.navCtrl.pop();
@@ -75,9 +100,9 @@ export class DetailwarningPage {
   }
 
   delete(item) {
-    let alert = this.alert.create({
+    let alertCtrl = this.alert.create({
       title: 'ลบการแจ้งเตือน',
-      message: 'คุณต้องการลบ ' + item + ' ใช่หรือไม่?',
+      message: 'คุณต้องการลบ ' + item.detail + ' ใช่หรือไม่?',
       buttons: [
         {
           text: 'Cancel',
@@ -89,11 +114,19 @@ export class DetailwarningPage {
         {
           text: 'Delete',
           handler: () => {
-            console.log('Buy clicked');
+            this.loading = this.loadding.create();
+            this.loading.present();
+            this.service.deleteDetails(item).then((data)=>{
+              this.loading.dismiss();
+              this.getWorning();
+            },(err)=>{
+              this.loading.dismiss();
+              alert('กรุณาลองใหม่อีกครั้ง');
+            });
           }
         }
       ]
     });
-    alert.present();
+    alertCtrl.present();
   }
 }

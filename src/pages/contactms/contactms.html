@@ -14,30 +14,37 @@
 
 
 <ion-content padding>
-    <ion-list>
-        <ion-item *ngFor="let item of listcontact" color="4" [ngClass]="data === item._id ? 'active': ''" (click)="selectItem(item)">
-                  <img item-start src="./assets/icon/contacts.png" width="20%">
-               <h2>{{item.usercontact.firstName}}</h2>
-               <ion-icon name="md-trash" item-end color="danger" (click)="delete(item)"></ion-icon>
-        </ion-item>
-      </ion-list>
-      <ion-item (click)="addContact()" color="5"> 
-          <img item-start src="./assets/icon/+.png" width="30%">
-          <ion-label >เพิ่มผู้ติดต่อ</ion-label>
-          <!-- <ion-checkbox color="danger" [(ngModel)]="other" checked="false"></ion-checkbox> -->
-        </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let item of listcontact" color="4" [ngClass]="data === item._id ? 'active': ''" (click)="selectItem(item)">
+      <img item-start src="./assets/icon/contacts.png" width="20%">
+      <h2>{{item.usercontact.firstName}}</h2>
+      <ion-icon name="md-trash" item-end color="danger" (click)="delete(item)"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-item (click)="addContact()" color="5">
+    <img item-start src="./assets/icon/+.png" width="30%">
+    <ion-label>เพิ่มผู้ติดต่อ</ion-label>
+    <!-- <ion-checkbox color="danger" [(ngModel)]="other" checked="false"></ion-checkbox> -->
+  </ion-item>
   <!-- {{other}} -->
   <ion-item *ngIf="other">
-    <ion-label floating>เพิ่มผู้รับการแจ้งเตือน</ion-label>
-    <ion-input type="text" [(ngModel)]="place"></ion-input>
+    <ion-label floating>ค้นหาผู้รับการแจ้งเตือน</ion-label>
+    <ion-input type="tel" [(ngModel)]="place" maxlength="10"></ion-input>
   </ion-item>
   <p *ngIf="other">
-    <button ion-button color="danger" [disabled]="!place" (click)="addPlace()" block>เพิ่ม</button>
+    <button ion-button color="danger" [disabled]="!place" (click)="findUser()" block>ค้นหา</button>
+  </p>
+  <ion-list>
+    <ion-item *ngFor="let item of listFindContact" color="4" [ngClass]="data === item._id ? 'active': ''">
+      <img item-start src="./assets/icon/contacts.png" width="20%">
+      <h2>{{item.firstName}} {{item.lastName}}</h2>
+      <ion-icon name="md-add-circle" item-end color="secondary" (click)="addUser(item)"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <p>
+    <button ion-button color="danger" (click)="open1()" [disabled]="!isCheck" block>ยืนยัน</button>
   </p>
   <p>
-    <button ion-button color="danger"(click)="open1()" [disabled]="!isCheck" block>ยืนยัน</button>
-  </p>
-    <p>
     <button ion-button color="danger" (click)="cancel()" block>ยกเลิก</button>
   </p>
 

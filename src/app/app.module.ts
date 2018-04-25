@@ -10,6 +10,13 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Base64 } from '@ionic-native/base64';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { AuthenProvider } from '../providers/authen/authen';
+import { HttpClientModule } from '@angular/common/http';
+import { Server } from '../providers/server-config/server-config';
+import { DetailwarningProvider } from '../providers/detailwarning/detailwarning';
+import { ContactProvider } from '../providers/contact/contact';
+import { ReportProvider } from '../providers/report/report';
+import { ContactphoneProvider } from '../providers/contactphone/contactphone';
 
 @NgModule({
   declarations: [
@@ -17,6 +24,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -31,7 +39,13 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
     Geolocation,
     Camera,
     ImagePicker,
-    Base64
+    Base64,
+    AuthenProvider,
+    Server,
+    DetailwarningProvider,
+    ContactProvider,
+    ReportProvider,
+    ContactphoneProvider
   ]
 })
 export class AppModule { }

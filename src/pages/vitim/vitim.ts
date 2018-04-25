@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { AuthenProvider } from '../../providers/authen/authen';
 
 /**
  * Generated class for the VitimPage page.
@@ -19,7 +20,12 @@ export class VitimPage {
     lastName: '',
     tel: null
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public authenService: AuthenProvider,
+    public loadding: LoadingController
+  ) {
     this.user = window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : {};
   }
 
@@ -27,9 +33,23 @@ export class VitimPage {
     console.log('ionViewDidLoad VitimPage');
 
   }
-  openPage() {
-    window.localStorage.setItem('user', JSON.stringify(this.user));
-    this.navCtrl.push("DetailwarningPage");
+  login() {
+    let loading = this.loadding.create();
+    loading.present();
+    this.authenService.login(this.user).then((data) => {
+      loading.dismiss();
+      window.localStorage.setItem('user', JSON.stringify(data));
+      this.navCtrl.push("DetailwarningPage");
+    }, (err) => {
+      this.authenService.userSignup(this.user).then((data) => {
+        loading.dismiss();
+        window.localStorage.setItem('user', JSON.stringify(data));
+        this.navCtrl.push("DetailwarningPage");
+      }, (err) => {
+        loading.dismiss();
+        alert('เกิดข้อผิดพลาด กรุณาตรวจข้อมูลอีกครั้ง');
+      });
+    });
   }
 
   cancel() {

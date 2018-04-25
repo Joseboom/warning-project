@@ -18,7 +18,7 @@
         <ion-item *ngFor="let item of listwarning" color="4"[ngClass]="data === item.detail ? 'active': ''" (click)="selectItem(item)">
                   <img item-start src="./assets/icon/2.png" width="20%">
                <h2>{{item.detail}}</h2>
-               <ion-icon name="md-trash" item-end color="danger" (click)="delete(item.detail)"></ion-icon>
+               <ion-icon name="md-trash" item-end color="danger" (click)="delete(item)"></ion-icon>
         </ion-item>
       </ion-list>
     <ion-item (click)="addContact()" color="5">

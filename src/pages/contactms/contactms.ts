@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ClassGetter } from '@angular/compiler/src/output/output_ast';
+import { ContactProvider } from '../../providers/contact/contact';
 
 /**
  * Generated class for the ContactmsPage page.
@@ -15,12 +16,14 @@ import { ClassGetter } from '@angular/compiler/src/output/output_ast';
   templateUrl: 'contactms.html',
 })
 export class ContactmsPage {
-  listcontact: Array<any> = [
-    { _id: '1', usercontact: { firstName: '1669', lastName: '', tel: '1669' } },
-    { _id: '2', usercontact: { firstName: 'โรงพยาบาลบีแคร์', lastName: '', tel: '1234' } },
-    { _id: '3', usercontact: { firstName: 'โรงพยาบาลภูมิพล', lastName: '', tel: '5678' } },
-    { _id: '4', usercontact: { firstName: 'สน.สายบางเขน', lastName: '', tel: '9999' } }
-  ];
+  // listcontact: Array<any> = [
+  //   { _id: '1', usercontact: { firstName: '1669', lastName: '', tel: '1669' } },
+  //   { _id: '2', usercontact: { firstName: 'โรงพยาบาลบีแคร์', lastName: '', tel: '1234' } },
+  //   { _id: '3', usercontact: { firstName: 'โรงพยาบาลภูมิพล', lastName: '', tel: '5678' } },
+  //   { _id: '4', usercontact: { firstName: 'สน.สายบางเขน', lastName: '', tel: '9999' } }
+  // ];
+  listcontact: Array<any> = [];
+  listFindContact: Array<any> = [];
   place: String;
   other: boolean = false;
   data: string = '';
@@ -42,18 +45,63 @@ export class ContactmsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public alert: AlertController
+    public alert: AlertController,
+    public service: ContactProvider,
+    public loading: LoadingController
   ) {
   }
 
   ionViewWillEnter() {
     console.log('ionViewDidLoad ContactmsPage');
     this.cookingData = window.localStorage.getItem('report') ? JSON.parse(window.localStorage.getItem('report')) : {};
+    this.getContact();
   }
-  addPlace() {
-    let place = JSON.parse(JSON.stringify(this.place));
-    this.listcontact.push(place);
-    this.place = '';
+
+  getContact() {
+    let loading = this.loading.create();
+    loading.present();
+    this.service.getContacts().then((data) => {
+      loading.dismiss();
+      this.listcontact = data;
+      this.listFindContact = [];
+      this.other = false;
+    }, (err) => {
+      loading.dismiss();
+      console.log(err);
+    });
+  }
+  findUser() {
+    // let place = JSON.parse(JSON.stringify(this.place));
+    // this.listcontact.push(place);
+    let loading = this.loading.create();
+    loading.present();
+    this.service.findUser(this.place).then((data) => {
+      loading.dismiss();
+      this.place = '';
+      this.listFindContact = data;
+    }, (err) => {
+      loading.dismiss();
+      console.log(err);
+    });
+  }
+
+  addUser(item) {
+    let pos = this.listcontact.map(function (e) { return e.usercontact.tel.toString(); }).indexOf(item.tel.toString());
+    // alert(JSON.stringify(pos));
+    if (pos === -1) {
+      let loading = this.loading.create();
+      loading.present();
+      this.service.addUser(item).then((data) => {
+        loading.dismiss();
+        this.getContact();
+      }, (err) => {
+        loading.dismiss();
+        console.log(err);
+      });
+    } else {
+      alert('คุณมีรายชื่อติดต่อแล้ว');
+    }
+
   }
   open1() {
     this.navCtrl.push("MapPage");
@@ -79,7 +127,7 @@ export class ContactmsPage {
 
 
   delete(item) {
-    let alert = this.alert.create({
+    let alertCtrl = this.alert.create({
       title: 'ลบผู้ติดต่อ',
       message: 'คุณต้องการลบ ' + item.usercontact.firstName + ' ใช่หรือไม่?',
       buttons: [
@@ -93,12 +141,21 @@ export class ContactmsPage {
         {
           text: 'Delete',
           handler: () => {
-            console.log('Buy clicked');
+            let loading = this.loading.create();
+            loading.present();
+            this.service.deleteUser(item).then((data) => {
+              loading.dismiss();
+              this.getContact();
+            }, (err) => {
+              loading.dismiss();
+              console.log(err);
+              alert('เกิดข้อผิดพลาด กรุณาลบข้อมูลอีกครั้ง');
+            });
           }
         }
       ]
     });
-    alert.present();
+    alertCtrl.present();
   }
 
 }
