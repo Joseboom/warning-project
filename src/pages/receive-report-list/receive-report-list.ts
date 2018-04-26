@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { LoadingController, IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the ReceiveMPage page.
+ * Generated class for the ReceiveReportListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,36 +11,36 @@ import { LoadingController, IonicPage, NavController, NavParams } from 'ionic-an
 
 @IonicPage()
 @Component({
-  selector: 'page-receive-m',
-  templateUrl: 'receive-m.html',
+  selector: 'page-receive-report-list',
+  templateUrl: 'receive-report-list.html',
 })
-export class ReceiveMPage {
-  badge: number = 0;
+export class ReceiveReportListPage {
+  reports: Array<any> = [];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private loading: LoadingController,
     public service: ReportProvider
   ) {
-    this.loadBadge();
+    this.loadReports();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReceiveMPage');
+    console.log('ionViewDidLoad ReceiveReportListPage');
   }
 
-  loadBadge() {
+  loadReports() {
     let loading = this.loading.create();
     loading.present();
-    this.service.getBadge().then((data) => {
+    this.service.getReports().then((data) => {
       loading.dismiss();
-      this.badge = data;
+      this.reports = data;
     }, (err) => {
       loading.dismiss();
       console.log(err);
     });
   }
-  reportList() {
-    this.navCtrl.push('ReceiveReportListPage');
+  itemSelected(item) {
+    this.navCtrl.push('ReceiveReportDetailPage', item);
   }
 }

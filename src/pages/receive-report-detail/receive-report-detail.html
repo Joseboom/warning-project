@@ -1,0 +1,79 @@
+<!--
+  Generated template for the ReceiveReportDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="3">
+    <ion-title>receive-report-detail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="report">
+    <p color="light">
+      ชื่อ-นามสกุล ผู้ส่ง: {{data.user.displayName}}
+    </p>
+    <p color="light">
+      รายละเอียดการแจ้งเตือน: {{data.detail}}
+    </p>
+    <p color="light">
+      ตำแหน่ง:
+    </p>
+    <div class="map-2" *ngIf="data && data.location && data.location.lat">
+      <img src="https://maps.googleapis.com/maps/api/staticmap?center={{data.location.lat}},{{data.location.lng}}&zoom=16&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|{{data.location.lat}},{{data.location.lng}}"
+        alt="">
+      <button ion-button color="primary" block (click)="viewMap()">นำทาง</button>
+    </div>
+
+    <p color="light">
+      รูปภาพ:
+    </p>
+    <ion-row class="fix-img-slide">
+      <ion-slides>
+        <ion-slide *ngFor="let item of data.images">
+          <img src="{{item}}" alt="">
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+
+
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <ion-segment color="light" class="md" [(ngModel)]="tabs">
+          <ion-segment-button [ngClass]="data.status == 'waiting' || data.status == 'receive' || data.status == 'success' ? 'active' : '' ">คำร้อง</ion-segment-button>
+        </ion-segment>
+      </ion-col>
+      <ion-col text-center>
+        <div class="lines" [ngClass]="data.status == 'waiting' || data.status == 'receive' || data.status == 'success' ? 'active-lines' : '' "></div>
+      </ion-col>
+      <ion-col text-center>
+        <ion-segment color="light" [(ngModel)]="tabs">
+          <ion-segment-button [ngClass]="data.status == 'receive' || data.status == 'success' ? 'active' : '' ">รับช่วย</ion-segment-button>
+        </ion-segment>
+      </ion-col>
+      <ion-col text-center>
+        <div class="lines" [ngClass]="data.status == 'receive' || data.status == 'success' ? 'active-lines' : '' "></div>
+      </ion-col>
+      <ion-col text-center>
+        <ion-segment color="light" [(ngModel)]="tabs">
+          <ion-segment-button [ngClass]="data.status == 'success' ? 'active' : '' ">ช่วยแล้ว</ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div padding>
+    <p *ngIf="data.status == 'waiting'">
+      <button ion-button color="danger" block (click)="receive()">ไปช่วยเหลือ</button>
+    </p>
+    <p *ngIf="data.status == 'receive'">
+      <button ion-button color="danger" block (click)="success()">ช่วยสำเร็จแล้ว</button>
+    </p>
+  </div>
+</ion-content>

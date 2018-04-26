@@ -1,6 +1,6 @@
 import { ReportProvider } from './../../providers/report/report';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, App, ActionSheetController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, App, ActionSheetController, LoadingController, ModalController } from 'ionic-angular';
 import { GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent } from '@ionic-native/google-maps';
 import * as firebase from 'firebase';
 import { Camera, CameraOptions, CameraPopoverOptions } from '@ionic-native/camera';
@@ -212,7 +212,7 @@ export class ReportPage {
               window.localStorage.removeItem('report');
               this.appCtrl.getRootNav().setRoot('TabnavPage');
             }, (err) => {
-              loading.dismiss();              
+              loading.dismiss();
               console.log(err);
             });
           }
@@ -220,5 +220,9 @@ export class ReportPage {
       ]
     });
     alert.present();
+  }
+
+  viewMap() {
+    this.navCtrl.push("MapviewPage");
   }
 }

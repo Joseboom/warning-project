@@ -28,8 +28,10 @@
       ตำแหน่ง:
     </p>
     <div class="map-2" *ngIf="cookingData && cookingData.location && cookingData.location.lat">
+      <button ion-button color="primary" block (click)="viewMap()">ดูแผนที่</button>
+      <!--       
       <img src="https://maps.googleapis.com/maps/api/staticmap?center={{cookingData.location.lat}},{{cookingData.location.lng}}&zoom=16&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|{{cookingData.location.lat}},{{cookingData.location.lng}}"
-        alt="">
+        alt=""> -->
     </div>
 
     <p color="light">

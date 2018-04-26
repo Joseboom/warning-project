@@ -22,6 +22,27 @@ export class ReportProvider {
       .catch(this.handleError);
   }
 
+  getReports(): Promise<any> {
+    return this.http.get(this.server.url + 'reportsbyuser/')
+      .toPromise()
+      .then((response) => response)
+      .catch(this.handleError);
+  }
+
+  getBadge(): Promise<any> {
+    return this.http.get(this.server.url + 'reportsbyuserbadge/')
+      .toPromise()
+      .then((response) => response)
+      .catch(this.handleError);
+  }
+
+  changeStatus(data): Promise<any> {
+    return this.http.post(this.server.url + 'reportschangestatus/' + data._id, data)
+      .toPromise()
+      .then((response) => response)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }

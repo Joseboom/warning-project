@@ -1,0 +1,22 @@
+page-mapview {
+.map3{
+    height: 100% !important;
+        justify-content: center;
+        display: flex !important;
+        align-items: center!important;
+        background-color: #ffffff;
+        overflow: hidden !important;
+        padding: 0px !important;
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 18px solid #212121;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -62px 0 0 -20px;
+        }
+}
+}
