@@ -34,7 +34,7 @@
 
     <div padding>
       <p>
-        <button ion-button color="danger" block [disabled]="!user.tel || !user.firstName || !user.lastName" (click)="login()">ยืนยัน</button>
+        <button ion-button color="danger" block [disabled]="!user.tel" (click)="login()">ยืนยัน</button>
       </p>
       <p>
         <button ion-button color="danger" (click)="cancel()" block>ยกเลิก</button>

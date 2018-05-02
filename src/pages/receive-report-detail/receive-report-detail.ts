@@ -18,6 +18,7 @@ import { ReportProvider } from '../../providers/report/report';
 export class ReceiveReportDetailPage {
   data: any;
   location: any;
+  url = '';
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,6 +34,9 @@ export class ReceiveReportDetailPage {
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+    setTimeout(() => {
+      this.url = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.data.location.lat + "," + this.data.location.lng + "&zoom=16&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|" + this.data.location.lat + "," + this.data.location.lng;
+    }, 1000);
   }
 
   ionViewDidLoad() {
@@ -60,7 +64,7 @@ export class ReceiveReportDetailPage {
   }
 
   viewMap() {
-    window.open('geo://' + this.location.lat + ',' + this.location.lng + '?q=' + this.data.location.lat + ',' + this.data.location.lng , '_system');
+    window.open('geo://' + this.location.lat + ',' + this.location.lng + '?q=' + this.data.location.lat + ',' + this.data.location.lng, '_system');
   }
 
 }

@@ -30,6 +30,7 @@ export class MapPage {
     },
     images: ['url']
   };
+  url = '';
   private map: GoogleMap;
   private location: LatLng;
   constructor(
@@ -53,6 +54,9 @@ export class MapPage {
         console.log('Error getting location', error);
       });
     });
+    setTimeout(() => {
+      this.url = "https://maps.googleapis.com/maps/api/staticmap?center=" + this.cookingData.location.lat + "," + this.cookingData.location.lng + "&zoom=15&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|" + this.cookingData.location.lat + "," + this.cookingData.location.lng;
+    }, 1000);
   }
   open1() {
     // this.cookingData.location = { lat: '100', lng: '200' };

@@ -25,7 +25,7 @@
       ตำแหน่ง:
     </p>
     <div class="map-2" *ngIf="data && data.location && data.location.lat">
-      <img src="https://maps.googleapis.com/maps/api/staticmap?center={{data.location.lat}},{{data.location.lng}}&zoom=16&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|{{data.location.lat}},{{data.location.lng}}"
+      <img src="{{url}}"
         alt="">
       <button ion-button color="primary" block (click)="viewMap()">นำทาง</button>
     </div>

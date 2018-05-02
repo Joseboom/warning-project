@@ -44,7 +44,7 @@ export class DetailwarningPage {
     public service: DetailwarningProvider,
     public loadding: LoadingController
   ) {
-    
+
   }
 
   ionViewWillEnter() {
@@ -52,12 +52,42 @@ export class DetailwarningPage {
     this.cookingData = window.localStorage.getItem('report') ? JSON.parse(window.localStorage.getItem('report')) : {};
     this.getWorning();
   }
+  // โดนลักทรัพย์
+  // อุบัติเหตุจราจร
+  // การแข่งมอเตอร์ไซค์บนท้องถนน 
+  // ข่มขืน 
+  // ปล้นจี้ 
+  // ภัยโรคจิต
 
   getWorning() {
     this.loading = this.loadding.create();
     this.loading.present();
     this.service.getDetails().then((data) => {
-      this.listwarning = data;
+      let mockdata = [{
+        _id: "โดนลักทรัพย์",
+        detail: "โดนลักทรัพย์"
+      },
+      {
+        _id: "อุบัติเหตุจราจร",
+        detail: "อุบัติเหตุจราจร"
+      },
+      {
+        _id: "การแข่งมอเตอร์ไซค์บนท้องถนน",
+        detail: "การแข่งมอเตอร์ไซค์บนท้องถนน"
+      },
+      {
+        _id: "ข่มขืน",
+        detail: "ข่มขืน"
+      },
+      {
+        _id: "ปล้นจี้",
+        detail: "ปล้นจี้"
+      },
+      {
+        _id: "ภัยโรคจิต",
+        detail: "ภัยโรคจิต"
+      }];
+      this.listwarning = mockdata.concat(data);
       this.loading.dismiss();
     }, (err) => {
       console.log(err);
@@ -69,10 +99,10 @@ export class DetailwarningPage {
     this.loading = this.loadding.create();
     this.loading.present();
     this.service.saveDetails(this.danger).then((data) => {
-      this.loading.dismiss();      
-      this.danger = '';      
+      this.loading.dismiss();
+      this.danger = '';
       this.getWorning();
-    },(err)=>{
+    }, (err) => {
       console.log(err);
     });
   }
@@ -116,10 +146,10 @@ export class DetailwarningPage {
           handler: () => {
             this.loading = this.loadding.create();
             this.loading.present();
-            this.service.deleteDetails(item).then((data)=>{
+            this.service.deleteDetails(item).then((data) => {
               this.loading.dismiss();
               this.getWorning();
-            },(err)=>{
+            }, (err) => {
               this.loading.dismiss();
               alert('กรุณาลองใหม่อีกครั้ง');
             });

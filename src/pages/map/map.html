@@ -15,7 +15,7 @@
 
 <ion-content padding>
   <div class="map" *ngIf="cookingData && cookingData.location && cookingData.location.lat">
-    <img src="https://maps.googleapis.com/maps/api/staticmap?center={{cookingData.location.lat}},{{cookingData.location.lng}}&zoom=15&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|{{cookingData.location.lat}},{{cookingData.location.lng}}" alt="">
+    <img src="{{url}}" alt="">
   </div>
   <div padding>
     <p>
