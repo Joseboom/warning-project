@@ -67,4 +67,8 @@ export class ReceiveReportDetailPage {
     window.open('geo://' + this.location.lat + ',' + this.location.lng + '?q=' + this.data.location.lat + ',' + this.data.location.lng, '_system');
   }
 
+  viewImage() {
+    this.navCtrl.push('ViewImagePage', this.data);
+  }
+
 }
