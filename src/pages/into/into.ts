@@ -33,7 +33,7 @@ export class IntoPage {
     this.appCtrl.getRootNav().setRoot('TabnavPage');
             }
   openPage2() {
-    this.navCtrl.push("HomereceivePage");
+    this.appCtrl.getRootNav().setRoot("HomereceivePage");
 
   }
 }

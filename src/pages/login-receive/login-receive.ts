@@ -54,6 +54,6 @@ export class LoginReceivePage {
   }
   
   cancel() {
-    this.navCtrl.pop();
+    this.navCtrl.push("HomereceivePage");
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController,App } from 'ionic-angular';
 
 /**
  * Generated class for the HomePage page.
@@ -20,7 +20,12 @@ export class HomePage {
 
   ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public alert: AlertController,
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public appCtrl: App
+  ) {
   }
 
   ionViewDidLoad() {
@@ -34,4 +39,25 @@ export class HomePage {
     this.navCtrl.push("ContactphPage");
 
   }
-}
+  logout()
+          {
+            let alert = this.alert.create({
+          title: 'ออกจากระบบ!',
+          message: 'คุณต้องการออกจากระบบ ใช่ หรือ ไม่ !',
+          buttons: [  {
+            text: 'ไม่ใช่',
+            handler: () => {
+              // console.log('Buy clicked');
+            }
+          },{
+              text: 'ใช่',
+              handler: () => {
+                this.appCtrl.getRootNav().setRoot("IntoPage");
+              }
+            }
+            ]
+        });
+        alert.present()
+      }
+  }
+

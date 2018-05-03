@@ -107,7 +107,7 @@ export class DetailwarningPage {
     });
   }
   cancel() {
-    this.navCtrl.pop();
+    this.navCtrl.push("VitimPage");
   }
 
   openPage() {

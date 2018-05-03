@@ -65,7 +65,7 @@ export class MapPage {
 
   }
   cancel() {
-    this.navCtrl.pop();
+    this.navCtrl.push("ContactmsPage");
 
   }
 }

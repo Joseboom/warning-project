@@ -53,7 +53,7 @@ export class VitimPage {
   }
 
   cancel() {
-    this.navCtrl.pop();
+    this.navCtrl.push("HomePage");
   }
 
 }

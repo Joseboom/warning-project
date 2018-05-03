@@ -68,12 +68,12 @@ export class ReportPage {
       message: 'คุณต้องการส่งข้อความนี้ใช่หรือไม่?',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'ไม่',
           handler: () => {
             // console.log('Buy clicked');
           }
         }, {
-          text: 'OK',
+          text: 'ใช่',
           handler: () => {
             // console.log('Buy clicked');
             let loading = this.loading.create();

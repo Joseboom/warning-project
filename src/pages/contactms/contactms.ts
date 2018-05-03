@@ -107,7 +107,7 @@ export class ContactmsPage {
     this.navCtrl.push("MapPage");
   }
   cancel() {
-    this.navCtrl.pop();
+    this.navCtrl.push("DetailwarningPage");  
   }
 
   selectItem(item) {
