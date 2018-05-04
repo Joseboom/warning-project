@@ -55,7 +55,8 @@ export class ReportPage {
     console.log('ionViewDidLoad ReportPage');
     this.cookingData = window.localStorage.getItem('report') ? JSON.parse(window.localStorage.getItem('report')) : {};
     console.log(this.cookingData);
-    this.cookingData.images = this.cookingData.images ? this.cookingData.images : [];
+    let imgs = window.localStorage.getItem('imgs') ? JSON.parse(window.localStorage.getItem('imgs')) : [];
+    this.cookingData.images = this.cookingData.images ? this.cookingData.images : imgs;
     this.user = window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : {};
   }
 

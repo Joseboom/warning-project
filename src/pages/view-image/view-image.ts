@@ -32,6 +32,7 @@ export class ViewImagePage {
     images: []
   };
   isView = false;
+  images: Array<any> = [];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -40,16 +41,16 @@ export class ViewImagePage {
     private imagePicker: ImagePicker,
     private loading: LoadingController,
   ) {
-  }
-
-  ionViewWillEnter() {
-    this.cookingData = window.localStorage.getItem('report') ? JSON.parse(window.localStorage.getItem('report')) : {};
     this.cookingData = this.navParams.data ? this.navParams.data : this.cookingData;
-    console.log(this.cookingData);
     if (this.navParams.data) {
       this.isView = true;
     }
     this.cookingData.images = this.cookingData.images ? this.cookingData.images : [];
+    this.images = window.localStorage.getItem('imgs') ? JSON.parse(window.localStorage.getItem('imgs')) : [];
+  }
+
+  ionViewWillEnter() {
+
   }
   selectImage() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -91,7 +92,7 @@ export class ViewImagePage {
     this.camera.getPicture(options).then((imageData) => {
       loading.present();
       this.noResizeImage(imageData).then((data) => {
-        this.cookingData.images.push(data);
+        this.images.push(data);
         this.setStorage();
         loading.dismiss();
       }, (err) => {
@@ -117,7 +118,7 @@ export class ViewImagePage {
       if (Array.isArray(imageData) && imageData.length > 0) {
         for (var i = 0; i < imageData.length; i++) {
           this.noResizeImage(imageData[i]).then((data) => {
-            this.cookingData.images.push(data);
+            this.images.push(data);
             this.setStorage();
             loading.dismiss();
           }, (err) => {
@@ -136,7 +137,7 @@ export class ViewImagePage {
   }
 
   setStorage() {
-    window.localStorage.setItem('report', JSON.stringify(this.cookingData));
+    window.localStorage.setItem('imgs', JSON.stringify(this.images));
   }
 
   noResizeImage(fileUri): Promise<any> {
