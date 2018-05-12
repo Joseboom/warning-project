@@ -1,7 +1,8 @@
 import { Geolocation } from '@ionic-native/geolocation';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { ReportProvider } from '../../providers/report/report';
+import { SMS } from '@ionic-native/sms';
 
 /**
  * Generated class for the ReceiveReportDetailPage page.
@@ -24,9 +25,12 @@ export class ReceiveReportDetailPage {
     public navParams: NavParams,
     private loading: LoadingController,
     public service: ReportProvider,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private sms: SMS,
+    private alertCtrl: AlertController
   ) {
     this.data = this.navParams.data;
+    // alert(JSON.stringify(this.data));
     this.geolocation.getCurrentPosition().then((resp) => {
       // resp.coords.latitude
       // resp.coords.longitude
@@ -45,6 +49,38 @@ export class ReceiveReportDetailPage {
   receive() {
     this.data.status = 'receive';
     this.update();
+  }
+
+  sentSms() {
+    let alertC = this.alertCtrl.create({
+      title: 'กรุณากรอกข้อความ',
+      inputs: [
+        {
+          name: 'message'
+        }
+      ],
+      buttons: [
+        {
+          text: 'ยกเลิก',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'ส่งข้อความ',
+          handler: data => {
+            if (data.message) {
+              // alert(data.message);
+              // alert(this.data.user.tel);
+              this.sms.send(this.data.user.tel, data.message);
+              alert('ส่งข้อความเรียบร้อยแล้ว');
+            }
+          }
+        }
+      ]
+    });
+    alertC.present();
   }
 
   success() {

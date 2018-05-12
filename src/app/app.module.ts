@@ -17,6 +17,7 @@ import { DetailwarningProvider } from '../providers/detailwarning/detailwarning'
 import { ContactProvider } from '../providers/contact/contact';
 import { ReportProvider } from '../providers/report/report';
 import { ContactphoneProvider } from '../providers/contactphone/contactphone';
+import { SMS } from '@ionic-native/sms';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ContactphoneProvider } from '../providers/contactphone/contactphone';
     DetailwarningProvider,
     ContactProvider,
     ReportProvider,
-    ContactphoneProvider
+    ContactphoneProvider,
+    SMS
   ]
 })
 export class AppModule { }

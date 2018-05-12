@@ -38,6 +38,12 @@
       <img src="https://maps.googleapis.com/maps/api/staticmap?center={{cookingData.location.lat}},{{cookingData.location.lng}}&zoom=16&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|{{cookingData.location.lat}},{{cookingData.location.lng}}"
         alt=""> -->
     </div>
+    <p color="light">
+      ส่งข้อความ:
+    </p>
+    <div class="map-2">
+      <button ion-button color="primary" block (click)="sentSms()">ส่งข้อความ</button>
+    </div>
 
 
   </div>
