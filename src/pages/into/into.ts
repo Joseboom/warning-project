@@ -14,9 +14,6 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
   templateUrl: 'into.html',
 })
 export class IntoPage {
-  alert: any;
- 
-  
 
   constructor(
     public navCtrl: NavController, 
@@ -25,15 +22,14 @@ export class IntoPage {
   ) {
   }
 
-  
   ionViewDidLoad() {
     console.log('ionViewDidLoad IntoPage');
   }
   openPage1() {
-    this.appCtrl.getRootNav().setRoot('TabnavPage');
+    this.navCtrl.setRoot('TabnavPage');
             }
   openPage2() {
-    this.appCtrl.getRootNav().setRoot("HomereceivePage");
+    this.navCtrl.setRoot("HomereceivePage");
 
   }
 }

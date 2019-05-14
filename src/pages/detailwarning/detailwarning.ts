@@ -95,7 +95,27 @@ export class DetailwarningPage {
     });
   }
 
+  checkText() {
+    let index = this.listwarning.map(function (e) { return e.detail; }).indexOf(this.danger);
+    if (index !== -1)// คำที่พิมพ์มาเคยมีแล้ว ค่าตั้งแต่ 0 ขึ้นไป
+    {
+      const alert = this.alert.create({
+        title: 'คำเตือน!',
+        subTitle: 'ข้อความของท่านซ้ำ!',
+        buttons: ['OK']
+      });
+      alert.present();     
+    } else {
+      // ยังไม่ซ้ำ ค่าเท่ากับ -1
+      this.createDanger();
+    }
+  }
+
   adddanger() {
+    this.checkText();
+  }
+
+  createDanger() {
     this.loading = this.loadding.create();
     this.loading.present();
     this.service.saveDetails(this.danger).then((data) => {

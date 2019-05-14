@@ -1,6 +1,6 @@
 import { Geolocation } from '@ionic-native/geolocation';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController,App } from 'ionic-angular';
 import { ReportProvider } from '../../providers/report/report';
 import { SMS } from '@ionic-native/sms';
 
@@ -27,7 +27,9 @@ export class ReceiveReportDetailPage {
     public service: ReportProvider,
     private geolocation: Geolocation,
     private sms: SMS,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public appCtrl: App
+
   ) {
     this.data = this.navParams.data;
     // alert(JSON.stringify(this.data));
@@ -86,7 +88,7 @@ export class ReceiveReportDetailPage {
   success() {
     this.data.status = 'success';
     this.update();
-  }
+    }
 
   update() {
     let loading = this.loading.create();
@@ -106,5 +108,25 @@ export class ReceiveReportDetailPage {
   viewImage() {
     this.navCtrl.push('ViewImagePage', this.data);
   }
-
+  blackhome(){
+    {
+      let alert = this.alertCtrl.create({
+    title: 'กลับสู่หน้าหลัก!',
+    message: 'คุณต้องการกลับสู่หน้าหลัก ใช่ หรือ ไม่ !',
+    buttons: [  {
+      text: 'ไม่ใช่',
+      handler: () => {
+        // console.log('Buy clicked');
+      }
+    },{
+        text: 'ใช่',
+        handler: () => {
+          this.appCtrl.getRootNav().setRoot("HomereceivePage");
+        }
+      }
+      ]
+  });
+  alert.present()
+}
+  }
 }

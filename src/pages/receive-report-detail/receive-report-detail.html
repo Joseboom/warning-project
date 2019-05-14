@@ -15,32 +15,41 @@
 
 <ion-content padding>
   <div class="report">
-    <p color="light">
-      ชื่อ-นามสกุล ผู้ส่ง: {{data.user.displayName}}
+    <p color="light" text-center>
+      <ion-row>
+        <ion-col col-12>
+          <img src="./assets/icon/r1.png" width="150%" block (click)="openPage()">
+        </ion-col>
+      </ion-row>
+      <br>
+      {{data.user.displayName}}
     </p>
-    <p color="light">
-      รายละเอียดการแจ้งเตือน: {{data.detail}}
+    <p color="light" text-center>
+      <ion-row>
+        <ion-col col-12>
+          <img src="./assets/icon/r3.png" width="150%" block (click)="openPage()">
+        </ion-col>
+      </ion-row>
+      <br>
+        {{data.detail}}
     </p>
-    <p color="light">
-      ตำแหน่ง:
+    <p color="light" text-center>
+      <ion-row>
+        <ion-col col-12>
+          <img src="./assets/icon/r4.png" width="150%" block (click)="openPage()">
+        </ion-col>
+      </ion-row>
     </p>
     <div class="map-2" *ngIf="data && data.location && data.location.lat">
       <img src="{{url}}" alt="">
       <button ion-button color="primary" block (click)="viewMap()">นำทาง</button>
     </div>
-
-    <p color="light">
-      รูปภาพ:
-    </p>
-    <div class="map-2">
+      <div class="map-2">
       <button ion-button color="primary" block (click)="viewImage()" [disabled]="data.images.length === 0">{{data.images && data.images.length > 0 ? 'ดูรูป' : 'ไม่มีรูป'}}</button>
       <!--       
       <img src="https://maps.googleapis.com/maps/api/staticmap?center={{cookingData.location.lat}},{{cookingData.location.lng}}&zoom=16&size=400x300&scale=2&markers=icon:https://s3-us-west-2.amazonaws.com/ionicthemes-apps-assets/ion2FullApp/pin.min.png|{{cookingData.location.lat}},{{cookingData.location.lng}}"
         alt=""> -->
     </div>
-    <p color="light">
-      ส่งข้อความ:
-    </p>
     <div class="map-2">
       <button ion-button color="primary" block (click)="sentSms()">ส่งข้อความ</button>
     </div>
@@ -78,6 +87,11 @@
     </p>
     <p *ngIf="data.status == 'receive'">
       <button ion-button color="danger" block (click)="success()">ช่วยสำเร็จแล้ว</button>
+    </p>
+  </div>
+  <div>
+    <p>
+      <button ion-button color="danger" block (click)="blackhome()">กลับสู่หน้าหลัก</button>
     </p>
   </div>
 </ion-content>

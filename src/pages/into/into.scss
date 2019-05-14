@@ -1,8 +1,11 @@
 page-into {
-    border: solid 1px;
-    background-image:url("../assets/icon/bg1.jpg");  width: 80%; height: 60%;
-    object-fit: cover;
-    color: rgb(0, 0, 0);
-    padding-left: 20px;
-    font-size: 1.4em;
+   .bg{
+    background-image:url("../assets/icon/bg1.jpg")!important;
+   }
+  
+    .cc{ 
+        display: table-cell;
+        vertical-align: middle;
+          }
+ 
 }

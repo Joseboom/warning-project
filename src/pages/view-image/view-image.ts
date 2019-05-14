@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController } from 'ionic-angular';
 import * as firebase from 'firebase';
-import { Camera, CameraPopoverOptions, CameraOptions } from '@ionic-native/camera';
+import { Camera, CameraPopoverOptions, CameraOptions} from '@ionic-native/camera';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { ImagePicker } from '@ionic-native/image-picker';
 
 /**
@@ -36,6 +37,7 @@ export class ViewImagePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public alert: AlertController, 
     public actionSheetCtrl: ActionSheetController,
     private camera: Camera,
     private imagePicker: ImagePicker,
@@ -52,6 +54,12 @@ export class ViewImagePage {
   ionViewWillEnter() {
 
   }
+
+deleteImg(i){
+this.images.splice(i);
+this.setStorage();
+}
+
   selectImage() {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [
@@ -187,4 +195,5 @@ export class ViewImagePage {
       xhr.send();
     });
   }
+  
 }

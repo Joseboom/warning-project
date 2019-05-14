@@ -15,18 +15,48 @@
 
 <ion-content padding>
   <div class="report">
-    <p color="light">
-      ชื่อ-นามสกุล ผู้ส่ง: {{user.firstName}} {{user.lastName}}
+      <p color="light" text-center>
+          <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <img src="./assets/icon/r1.png" width="150%" block (click)="openPage()">
+          </ion-col>
+        </ion-row>
+          </ion-grid>
+      <br>
+      {{user.firstName}} {{user.lastName}}
+      </p>
+    <p color="light" text-center>
+        <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <img src="./assets/icon/r2.png" width="150%" block (click)="openPage()">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+      <br>
+      {{cookingData.usercontact.firstName}} {{cookingData.usercontact.lastName}}
     </p>
-    <p color="light">
-      ชื่อ-นามสกุล ผู้รับ: {{cookingData.usercontact.firstName}} {{cookingData.usercontact.lastName}}
-    </p>
-    <p color="light">
-      รายละเอียดการแจ้งเตือน: {{cookingData.detail}}
-    </p>
-    <p color="light">
-      ตำแหน่ง:
-    </p>
+    <p color="light" text-center>
+        <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <img src="./assets/icon/r3.png" width="150%" block (click)="openPage()">
+        </ion-col>
+      </ion-row>
+        </ion-grid>
+        <br>
+        {{cookingData.detail}}
+      </p>
+    <p color="light" text-center>
+        <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <img src="./assets/icon/r4.png" width="150%" block (click)="openPage()">
+        </ion-col>
+      </ion-row>
+        </ion-grid>
+      </p>
     <div class="map-2" *ngIf="cookingData && cookingData.location && cookingData.location.lat">
       <button ion-button color="primary" block (click)="viewMap()">ดูแผนที่</button>
       <!--       

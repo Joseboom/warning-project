@@ -43,4 +43,5 @@ export class ReceiveReportListPage {
   itemSelected(item) {
     this.navCtrl.push('ReceiveReportDetailPage', item);
   }
+  
 }

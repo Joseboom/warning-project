@@ -16,12 +16,13 @@
 <ion-content padding>
   <ion-row class="fix-img-slide">
     <ion-slides>
-      <ion-slide *ngFor="let item of images">
+      <ion-slide *ngFor="let item of images; let i = index;">
         <img src="{{item}}" alt="">
+        <button *ngIf="isView" ion-button block (click)="deleteImg(i)">ลบ</button>
       </ion-slide>
     </ion-slides>
   </ion-row>
 </ion-content>
 <ion-footer *ngIf="isView">
   <button ion-button block (click)="selectImage()">เพิ่มรูป</button>
-</ion-footer>
+  </ion-footer>

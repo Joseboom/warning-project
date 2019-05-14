@@ -18,6 +18,6 @@
     <ion-item ion-item *ngFor="let item of reports" (click)="itemSelected(item)">
       {{ item.detail }}
       <p>{{item.status === 'waiting' ? 'รอการช่วยเหลือ' : item.status === 'receive' ? 'กำลังไปช่วยเหลือ' : 'ช่วยเหลือแล้ว'}}</p>
-    </ion-item>
+         </ion-item>
   </ion-list>
 </ion-content>

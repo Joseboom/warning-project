@@ -34,7 +34,35 @@ export class ContactphPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactphPage');
   }
+  checkText() {
+    let index = this.listcontact.map(function (e) { return e.tel; }).indexOf(this.place2.tel);
+    if (index !== -1)// คำที่พิมพ์มาเคยมีแล้ว ค่าตั้งแต่ 0 ขึ้นไป
+    {
+      const alert = this.alert.create({
+        title: 'คำเตือน!',
+        subTitle: 'เบอร์โทรซ้ำ!',
+        buttons: ['OK']
+      });
+      alert.present();     
+    } else {
+      // ยังไม่ซ้ำ ค่าเท่ากับ -1
+      this.creattel();
+    }
+  }
 
+  creattel() {
+    let loading = this.loading.create();
+    loading.present();
+    this.service.addUser(this.place2).then((data) => {
+      loading.dismiss();
+      this.place2.name = '';
+      this.place2.tel = '';
+      this.getContactPhone();
+    }, (err) => {
+      loading.dismiss();
+      console.log(err);
+    });
+  }
   getContactPhone() {
     let loading = this.loading.create();
     loading.present();
@@ -53,24 +81,10 @@ export class ContactphPage {
     window.location.href = 'tel:' + this.data;
   }
   addPlace2() {
-    // let place = JSON.parse(JSON.stringify(this.place2));
-    // this.listcontact.push(place);
-    // window.localStorage.setItem('listPhone', JSON.stringify(this.listcontact));
-    let loading = this.loading.create();
-    loading.present();
-    this.service.addUser(this.place2).then((data) => {
-      loading.dismiss();
-      this.place2.name = '';
-      this.place2.tel = '';
-      this.getContactPhone();
-    }, (err) => {
-      loading.dismiss();
-      console.log(err);
-    });
-
+    this.checkText();
   }
   cancel() {
-    this.navCtrl.pop();
+    this.navCtrl.push('HomePage');
   }
 
   changeTel(item) {
